@@ -1,0 +1,108 @@
+.logoimg {
+    width: 45%;
+    margin-left: 78px;
+}
+
+.nav {
+    display: flex;
+    background-color: gainsboro;
+
+
+}
+
+.logo {
+    display: contents;
+
+}
+
+.button-nav {
+    font-size: xx-large;
+    margin-top: 45px;
+    margin-left: 20px;
+
+}
+
+.dropdown {
+    margin-left: 900px;
+    font-size: xx-large;
+    margin-top: 45px;
+    margin-right: 100px;
+}
+
+.dropdown-menu {
+    top: 35%;
+}
+
+.sort {
+    border: solid 1px black;
+    border-radius: 5px;
+    display: inline-flex;
+    margin-top: 20px;
+    margin-left: 75px;
+}
+
+
+
+.all-idea {
+    margin-top: 2px;
+    margin-left: 75px;
+
+}
+
+.child-idea {
+
+    border: 1px solid black;
+    width: 93%;
+    border-collapse: collapse;
+}
+
+.idea-content {
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.like-button {
+    margin: 8px;
+    margin-left: 50px;
+
+
+}
+
+.like-button button {
+    background-color: white;
+    border: none;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+    border-radius: 4px;
+    color: #333;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination a.prev,
+.pagination a.next {
+    font-weight: bold;
+}
+
+.pagination a.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border: solid 1px black;
+    border-collapse: collapse;
+}

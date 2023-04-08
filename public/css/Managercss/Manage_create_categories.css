@@ -1,0 +1,34 @@
+.logo {
+    display: contents;
+    margin-left: 25%;
+}
+
+.logoimg {
+    width: 15%;
+    margin-left: 42.4%;
+}
+
+.container {
+    margin-top: 50px;
+    text-align: center;
+    border: 1px black solid;
+    width: 30%;
+    padding-bottom: 20px;
+    padding-top: 5px;
+}
+
+.button {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin-left: 90px;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: white;
+    text-decoration: none;
+}

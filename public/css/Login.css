@@ -1,0 +1,33 @@
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+.h-custom {
+  height: calc(100% - 73px);
+}
+
+body {
+  margin-top: 5%;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+a,
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 450px) {
+  .h-custom {
+    height: 100%;
+  }
+}

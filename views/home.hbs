@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html >
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"/>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/pagination.css">
+    <link rel="stylesheet"  href="/css/fontawesome-free/css/all.min.css"/>
+    <script src="/js/main.js"></script>
+  </head>
+  
+  <body>
+    <body id="body-pd">
+        <header class="header" id="header">
+        {{!-- User profile --}}
+            <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i></div>
+            <p>User logged in as {{user.name}}</p>
+            {{!-- <a href="#"class="header_img"><i class="fa-solid fa-user"></i></a> --}}
+        </header>
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">IT Company</span> </a>
+                <div class="nav_list"> 
+                    <a href="/createIdea" class="nav_link "> <i class="fa-solid fa-plus"></i> <span class="nav_name">Add new Idea</span> </a>
+                    <a href="/categoryIndex" class="nav_link">  <i class="fa-solid fa-book"></i> <span class="nav_name">Categories</span> </a> 
+                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a> 
+                    <a href="/editclosedate" class="nav_link"><i class="fa-solid fa-folder-closed"></i> <span class="nav_name">Closer Date</span> </a>                
+                </div>
+                <a href="/login" class="nav_link"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">LogIn</span> </a>
+                <a href="/logout" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+            </nav>
+        </div>
+      
+      <!--Container Main start-->
+      <div class="height-100 bg-light">
+          <div class="sort">
+            <a href="/sortByLikes"><button class="btn btn-warning">Most Likes</button></a>
+            <a href="/sortByDislikes"><button class="btn btn-warning">Least Likes</button></a>
+            <a href="/sortByDate"><button class="btn btn-warning">Latest Idea</button></a>
+          </div>
+          <div class="sort">
+            <span style="font-size:large; color:red; margin:5% auto">
+            {{msg}}
+            </span> 
+          </div>
+          <div class="all-idea">
+            {{#each idea}}
+              <div class="child-idea">
+                <p class="idea-content" style="font-size:large; font-weight:bold">
+                  {{title}}
+                </p>
+                <p class="idea-content">
+                  {{content}}
+                </p>
+                <p class="idea-content">
+                  Liked: {{like_count}}
+                </p>
+                <div class="like-button">
+                  <a href="/likeIdea?id={{_id}}">
+                    <button id="dislike-btn">
+                      <i class="fa fa-thumbs-up">Like</i>
+                    </button>
+                  </a>
+                  <a href="/dislikeIdea?id={{_id}}">
+                    <button id="dislike-btn">
+                      <i class="fa fa-thumbs-down">Dislike</i>
+                    </button>
+                  </a>
+                  <a href="/commentForm?id={{_id}}"><button><i class="fas fa-comment">Write comment</i></button></a>
+                  <a href="/editIdea?id={{_id}}"><button><i class="fas fa-edit">Edit</i></button></a>
+                  <a href="/deleteIdea?id={{_id}}" onclick="return confirm('Are you sure?')"><button><i class="fas fa-remove">Delete</i></button></a>
+                </div>
+                <p class="idea-content" style="bottom: 5%"><strong>Comments: </strong></p>
+                {{#each comments}}
+                    <p class="idea-content" style=" font-size:small">{{text}}</p>
+                {{/each}}
+              </div>
+            {{/each}}
+          </div>
+          <div id="myDIV" class="navs">
+            <a href="/?page=1"><button class="btn active">1</button></a> 
+            <a href="/?page=2"><button class="btn ">2</button></a>
+          </div>
+        </div>
+      </div>
+      
+      
+  {{!-- <script type="text/javascript" src="./main.js"></script> --}}
+  </body>
+
+</html>
