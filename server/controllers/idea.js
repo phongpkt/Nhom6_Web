@@ -8,9 +8,8 @@ const nodemailer = require('nodemailer');
 
 //setting transporters
 const transporterQAC = nodemailer.createTransport({
-    host: 'smpt.mailtrap.io',
-    service: 'gmail',
-    port: 465,
+    host: 'smtp.mailtrap.io',
+    port: 2525,
     auth: {
         user: '140e1a5b653658',
         pass: '74d11adcf816bb'
@@ -18,9 +17,8 @@ const transporterQAC = nodemailer.createTransport({
 });
 
 const transporterStaff = nodemailer.createTransport({
-    host: 'smpt.mailtrap.io',
-    service: 'gmail',
-    port: 465,
+    host: 'smtp.mailtrap.io',
+    port: 2525,
     auth: {
         user: '8088f7ee2af198',
         pass: '6363f74cab6b60'
@@ -111,16 +109,17 @@ exports.createIdea = async (req, res) => {
         await User.findById(req.user._id).updateOne({$push:{ideas:Ideaid}})
         res.redirect('/')
     }
-    const date = Date.now()
+    const date = new Date(now())
     let year1 = date.getFullYear();
     let month1 = ("0" + (date.getMonth() + 1)).slice(-2);
     let day1 = ("0" + date.getDate()).slice(-2);
 
     //Sending Email
     const mailIdea = {
-        to: 'phongthanhpo@gmail.com',
+        from: 'Localhost',
+        to: 'QAC@gmail.com',
         subject: 'New Idea',
-        text: 'A new idea has been created by ' + req.user.name + ' on ' + year1 + "-" + month1 + "-" + day1
+        text: 'A new idea has been created by ' + req.user.name + ' on ' + day1 + '-' + month1 + '-' + year1
     }
     transporterQAC.sendMail(mailIdea, function(err, info) {
         if (err) {
@@ -237,6 +236,7 @@ exports.commentForm = async (req, res) => {
 
 exports.comment = async (req, res) => {
     const id = req.body.id
+    const idea = await IdeaModel.findById(id)
     const comment = {
         text: req.body.comment,
         postedBy: req.user.name,
@@ -246,7 +246,7 @@ exports.comment = async (req, res) => {
     
     //formating date
     let year = category.commentDeadline.getFullYear();
-    let month = ("0" + (dacategory.commentDeadlinete.getMonth() + 1)).slice(-2);
+    let month = ("0" + (category.commentDeadline.getMonth() + 1)).slice(-2);
     let day = ("0" + category.commentDeadline.getDate()).slice(-2);
 
     if (date < category.commentDeadline){
@@ -263,17 +263,22 @@ exports.comment = async (req, res) => {
     }
     else {
         // console.log('Comments out of date!')
-        var msg = 'You cannot create comments after the deadline: ' + year + "-" + month + "-" + day
+        var msg = 'You cannot create comments after the deadline: ' + year + '-' + month + '-' + day
         const query = await IdeaModel.find().limit(5)
         const user = req.user
         res.render('home', {'idea':query, 'user':user, 'msg':msg})
     }
-    
+    const date1 = new Date(now())
+    let year1 = date1.getFullYear();
+    let month1 = ("0" + (date1.getMonth() + 1)).slice(-2);
+    let day1 = ("0" + date1.getDate()).slice(-2);
+
     //Sending Email
     const mailComment = {
-        to: 'phongthanhpo@gmail.com',
+        from: 'Localhost',
+        to: 'staff@gmail.com',
         subject: 'New Comment!',
-        text: 'A new comment has been created by ' + req.user.name + ' on ' + year + "-" + month + "-" + day
+        text: 'A new comment has been created by ' + req.user.name + ' on ' + day1 + '-' + month1 + '-' + year1
     }
     transporterStaff.sendMail(mailComment, function(err, info) {
         if (err) {
