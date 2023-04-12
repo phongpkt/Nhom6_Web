@@ -65,6 +65,9 @@ app.use('/', ideas);
 const categories = require('./server/routes/category');
 app.use('/', categories);
 
+const departments = require('./server/routes/department');
+app.use('/', departments);
+
 const users = require('./server/routes/user');
 app.use('/', users);
 

@@ -7,7 +7,9 @@ const ideaController = require('../controllers/idea')
 // const fileExtLimiter = require('../../middlewares/fileExtLimiter');
 // const fileSizeLimiter = require('../../middlewares/fileSizeLimiter');
 
+// router.get('/', protectRoute, ideaController.view);
 router.get('/', ideaController.view);
+
 router.get('/sortByLikes', ideaController.sortByLikes);
 router.get('/sortByDislikes', ideaController.sortByDislikes);
 router.get('/sortByDate', ideaController.sortByDate);

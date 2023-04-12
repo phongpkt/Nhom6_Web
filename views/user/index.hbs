@@ -48,8 +48,8 @@
                 <div class="nav_list"> 
                     <a href="/register" class="nav_link "> <i class="fa-solid fa-plus"></i> <span class="nav_name">Add new Account</span> </a>
                     <a href="/categoryIndex" class="nav_link">  <i class="fa-solid fa-book"></i> <span class="nav_name">Categories</span> </a> 
-                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a> 
-                    <a href="/editclosedate" class="nav_link"><i class="fa-solid fa-folder-closed"></i> <span class="nav_name">Closer Date</span> </a>                
+                    <a href="/departmentIndex" class="nav_link">  <i class="fa-sharp fa-regular fa-building"></i> <span class="nav_name">Departments</span> </a> 
+                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a>
                 </div>
                 <a href="/login" class="nav_link"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">LogIn</span> </a>
                 <a href="/logout" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
@@ -62,30 +62,30 @@
     <br>
     <table>
         <tr>
-                <td><strong>Name</strong></td>
-                <td><strong>Email</strong></td>
-                <td><strong>Location</strong></td>
-                <td><strong>Ideas posted</strong></td>
-                <td><strong>Roles</strong></td>
-                <td><strong>Actions</strong></td>
-            </tr>
+            <td><strong>Name</strong></td>
+            <td><strong>Email</strong></td>
+            <td><strong>Location</strong></td>
+            {{!-- <td><strong>Ideas posted</strong></td> --}}
+            <td><strong>Roles</strong></td>
+            <td><strong>Actions</strong></td>
+        </tr>
         {{#each userList}}
-            <tr>
-                <td>
-                    {{name}}
-                </td>
-                <td>
-                    {{email}}
-                </td>
-                <td>{{location}}</td>
-                <td>
-                    {{#each ideas}}
-                        <p>{{title}}</p>
-                    {{/each}}
-                </td>
-                <td>{{role.name}}</td>
-                <td><a href="/deleteUser?id={{_id}}">Delete</a></td>
-            </tr>
+        <tr>
+            <td>
+                {{name}}
+            </td>
+            <td>
+                {{email}}
+            </td>
+            <td>{{location}}</td>
+            {{!-- <td>
+                {{#each ideas}}
+                    <p>{{title}}</p>
+                {{/each}}
+            </td> --}}
+            <td>{{role.name}}</td>
+            <td><a href="/deleteUser?id={{_id}}">Delete</a></td>
+        </tr>
         {{/each}}
     </table>
 </div>

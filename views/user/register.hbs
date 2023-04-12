@@ -35,10 +35,10 @@
             <nav class="nav">
                 <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">IT Company</span> </a>
                 <div class="nav_list"> 
-                    <a href="/register" class="nav_link "> <i class="fa-solid fa-plus"></i> <span class="nav_name">Add new Account</span> </a>
+                    <a href="/register" class="nav_link actives"> <i class="fa-solid fa-plus"></i> <span class="nav_name">Add new Account</span> </a>
                     <a href="/categoryIndex" class="nav_link">  <i class="fa-solid fa-book"></i> <span class="nav_name">Categories</span> </a> 
-                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a> 
-                    <a href="/editclosedate" class="nav_link"><i class="fa-solid fa-folder-closed"></i> <span class="nav_name">Closer Date</span> </a>                
+                    <a href="/departmentIndex" class="nav_link">  <i class="fa-sharp fa-regular fa-building"></i> <span class="nav_name">Departments</span> </a> 
+                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a>
                 </div>
                 <a href="/login" class="nav_link"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">LogIn</span> </a>
                 <a href="/logout" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
@@ -100,10 +100,24 @@
                                 <label for="Role" class="cols-sm-2 control-label">Select a Role</label>
                                 <div class="cols-sm-10">
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-envelope fa"
+                                        <span class="input-group-addon"><i class="fa fa-solid fa-address-book"
                                                 aria-hidden="true"></i></span>
                                         <select name="Role" class="form-control">
                                             {{#each role}}
+                                                <option value="{{_id}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Department" class="cols-sm-2 control-label">Select a Department</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-sharp fa-regular fa-building"
+                                                aria-hidden="true"></i></span>
+                                        <select name="Department" class="form-control">
+                                            {{#each department}}
                                                 <option value="{{_id}}">{{name}}</option>
                                             {{/each}}
                                         </select>

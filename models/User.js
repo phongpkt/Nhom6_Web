@@ -24,8 +24,8 @@ const UserSchema = new Schema({
         default: "Viet Nam",
     },
     ideas: [{type: ObjectId, ref:"Ideas"}],
-    role: {type: ObjectId,ref: "Roles"}
+    role: {type: ObjectId, ref: "Roles"},
+    department: {type: ObjectId, ref: "Departments"}
 })
 
-// db.ROLES = ["coordinator", "admin", "manager", "staff"];
 module.exports = mongoose.model('Users', UserSchema);

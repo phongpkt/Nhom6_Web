@@ -4,14 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Category</title>
+    <title>Category Index</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"/>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet"  href="/css/fontawesome-free/css/all.min.css"/>
-    <link rel="stylesheet" href="/css/Managercss/Edit_category_name.css" />
     <script src="/js/main.js"></script>
+    <style>
+        table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        }
+
+        tr:nth-child(even) {
+        background-color: #dddddd;
+        }
+    </style>
 </head>
 <body>
     <body id="body-pd">
@@ -29,29 +45,46 @@
             <nav class="nav">
                 <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">IT Company</span> </a>
                 <div class="nav_list"> 
-                    <a href="/createCategory" class="nav_link "> <i class="fa-solid fa-plus"></i> <span class="nav_name">Add new category</span> </a>
+                    <a href="/createDepartment" class="nav_link "> <i class="fa-solid fa-plus"></i> <span class="nav_name">Add new category</span> </a>
                     <a href="/categoryIndex" class="nav_link">  <i class="fa-solid fa-book"></i> <span class="nav_name">Categories</span> </a> 
                     <a href="/departmentIndex" class="nav_link">  <i class="fa-sharp fa-regular fa-building"></i> <span class="nav_name">Departments</span> </a> 
-                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a>
-                    <a href="/editclosedate" class="nav_link"><i class="fa-solid fa-calendar-days"></i> <span class="nav_name">Create an Event</span> </a>                   
+                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a>               
                 </div>
                 <a href="/login" class="nav_link"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">LogIn</span> </a>
                 <a href="/logout" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
             </nav>
         </div>
-    <div class="container">
-        <h1>Create Category</h1>
-        <form action="/createCategory" method="POST">
-        <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" placeholder="Category name" name="txtName">
-        </div>
-        <div class="mb-3">
-            <label for="form-label">Description</label>
-            <input type="text" class="form-control" placeholder="Category description" name="txtDescription">
-        </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
-        </form>
-    </div>
+<!-- Page content -->
+<div class="content">
+    <h1>View departments</h1>
+    <span>
+        <p style="top bottom:5%; font-size:large; color:red">{{msg}}</p>
+        <br>
+    </span>
+    <br>
+    <table>
+        <tr>
+            <td><strong>Name</strong></td>
+            <td><strong>Description</strong></td>
+            <td><strong>List of Staff</strong></td>
+            <td><strong>Actions</strong></td>
+        </tr>
+        {{#each department}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{description}}</td>
+            <td>
+                {{#each staff}}
+                    <p>{{name}}</p>
+                {{/each}}
+            </td>
+            <td>
+                <a href="/editCategory?id={{_id}}"><button><i class="fas fa-edit">Edit</i></button></a>
+                <a href="/deleteCategory?id={{_id}}" onclick="return confirm('Are you sure?')"><button><i class="fas fa-remove">Delete</i></button></a>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
 </body>
 </html>

@@ -66,7 +66,7 @@ exports.deleteCat = async (req, res) => {
 
 exports.editCloseDateForm = async (req, res) => {
     const query = await CatModel.find();
-    res.render('editCloseDate', {'category':query})
+    res.render('categories/editCloseDate', {'category':query})
 }
 exports.editCloseDate = async (req, res) => {
     const id = req.body.category

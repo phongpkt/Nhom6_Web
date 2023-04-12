@@ -1,7 +1,31 @@
 const IdeaModel = require('../../models/Idea')
 const User = require('../../models/User');
 const CatModel = require('../../models/Category');
+const Department = require('../../models/Department')
+const { now } = require('mongoose');
+const nodemailer = require('nodemailer');
 // const path = require("path");
+
+//setting transporters
+const transporterQAC = nodemailer.createTransport({
+    host: 'smpt.mailtrap.io',
+    service: 'gmail',
+    port: 465,
+    auth: {
+        user: '140e1a5b653658',
+        pass: '74d11adcf816bb'
+    }
+});
+
+const transporterStaff = nodemailer.createTransport({
+    host: 'smpt.mailtrap.io',
+    service: 'gmail',
+    port: 465,
+    auth: {
+        user: '8088f7ee2af198',
+        pass: '6363f74cab6b60'
+    }
+});
 
 exports.view = async (req, res) => {
     var page = req.query.page
@@ -36,6 +60,13 @@ exports.sortByDate = async (req, res) => {
     res.render('home', {'idea':idea, 'user':user})
 }
 
+// exports.sortByDepartment = async (req, res) => {
+//     const user = req.user
+//     const department = await Department.find()
+//     var {sort} = department.na
+//     const idea = await IdeaModel.find().sort({department.name : 1})
+// }
+
 // exports.ideaDetail = async (req, res)=>{
 //     const id = req.query.id
 //     const user = req.user;
@@ -53,6 +84,7 @@ exports.createForm = async (req, res) => {
 }
 
 exports.createIdea = async (req, res) => {
+    //save new idea
     // const files = req.files
     const newIdea = new IdeaModel()
     newIdea.title = req.body.txtTitle
@@ -61,8 +93,14 @@ exports.createIdea = async (req, res) => {
     newIdea.author = req.user._id
     const Ideaid = newIdea._id
     const category = await CatModel.findById(req.body.category)
+    
+    //formating date
+    let year = category.ideaDeadline.getFullYear();
+    let month = ("0" + (category.ideaDeadline.getMonth() + 1)).slice(-2);
+    let day = ("0" + category.ideaDeadline.getDate()).slice(-2);
+
     if (newIdea.date > category.ideaDeadline) {
-        var msg = 'You cannot create a new idea after the deadline:' + category.ideaDeadline
+        var msg = 'You cannot create a new idea after the deadline: ' + year + "-" + month + "-" + day
         const query = await IdeaModel.find().limit(5)
         const user = req.user
         res.render('home', {'idea':query, 'user':user, 'msg':msg})
@@ -73,6 +111,24 @@ exports.createIdea = async (req, res) => {
         await User.findById(req.user._id).updateOne({$push:{ideas:Ideaid}})
         res.redirect('/')
     }
+    const date = Date.now()
+    let year1 = date.getFullYear();
+    let month1 = ("0" + (date.getMonth() + 1)).slice(-2);
+    let day1 = ("0" + date.getDate()).slice(-2);
+
+    //Sending Email
+    const mailIdea = {
+        to: 'phongthanhpo@gmail.com',
+        subject: 'New Idea',
+        text: 'A new idea has been created by ' + req.user.name + ' on ' + year1 + "-" + month1 + "-" + day1
+    }
+    transporterQAC.sendMail(mailIdea, function(err, info) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Success');
+        }
+    });
 }
 
 exports.editIdea = async (req, res) => {
@@ -175,7 +231,7 @@ exports.dislike = async (req, res) => {
 exports.commentForm = async (req, res) => {
     const id = req.query.id
     const user = req.user
-    const query = await IdeaModel.findById(id)
+    const query = await IdeaModel.findById(id).populate('category')
     res.render('ideas/comment', {'idea':query, 'user':user})
 }
 
@@ -185,14 +241,46 @@ exports.comment = async (req, res) => {
         text: req.body.comment,
         postedBy: req.user.name,
     }
-    await IdeaModel.findById(id)
-    .updateOne(
-        {
-            $push:{comments:comment}
+    const category = await CatModel.findById(req.body.catId)
+    const date = new Date(now())
+    
+    //formating date
+    let year = category.commentDeadline.getFullYear();
+    let month = ("0" + (dacategory.commentDeadlinete.getMonth() + 1)).slice(-2);
+    let day = ("0" + category.commentDeadline.getDate()).slice(-2);
+
+    if (date < category.commentDeadline){
+        await IdeaModel.findById(id)
+        .updateOne(
+            {
+                $push:{comments:comment}
+            }
+        ).catch((err) => {
+            console.log(err);
+        })
+        console.log('Comment saved success!')
+        res.redirect('/')
+    }
+    else {
+        // console.log('Comments out of date!')
+        var msg = 'You cannot create comments after the deadline: ' + year + "-" + month + "-" + day
+        const query = await IdeaModel.find().limit(5)
+        const user = req.user
+        res.render('home', {'idea':query, 'user':user, 'msg':msg})
+    }
+    
+    //Sending Email
+    const mailComment = {
+        to: 'phongthanhpo@gmail.com',
+        subject: 'New Comment!',
+        text: 'A new comment has been created by ' + req.user.name + ' on ' + year + "-" + month + "-" + day
+    }
+    transporterStaff.sendMail(mailComment, function(err, info) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Success');
         }
-    ).catch((err) => {
-        console.log(err);
-    })
-    console.log('Comment saved success!')
-    res.redirect('/')
+    });
+
 }

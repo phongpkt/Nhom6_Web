@@ -2,7 +2,7 @@ const passport = require("passport");
 const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
 const Role = require("../../models/Role");
-const Idea = require("../../models/Idea");
+const Department = require("../../models/Department");
 
 //For home page
 exports.dashboardView = (req, res) => {
@@ -22,12 +22,14 @@ exports.index = async (req, res) => {
 //Register View
 exports.registerView = async (req, res) => {
   const role = await Role.find()
-  res.render("user/register", {'role':role});
+  const dept = await Department.find()
+  res.render("user/register", {'role':role, 'department':dept});
 };
 //Post Request for Register
 exports.registerUser = async (req, res) => {
   const { name, email, location, password, confirm } = req.body;
   const role = req.body.Role
+  const department = req.body.Department
 
   if (!name || !email || !password || !confirm) {
     console.log("Fill empty fields");
@@ -43,6 +45,7 @@ exports.registerUser = async (req, res) => {
       location,
       password,
       role,
+      department,
     });
     //Password Hashing
     bcrypt.genSalt(10, (err, salt) =>
@@ -51,16 +54,26 @@ exports.registerUser = async (req, res) => {
         newUser.password = hash;
         newUser
           .save()
-          .then(res.redirect("/login"))
           .catch((err) => console.log(err));
       })
     );
     const userid = newUser._id
+    const RoleModel = await Role.findById(role)
     await Role.findById(role)
     .updateOne
     ({
       $push:{user : userid}
-    })
+    });
+    if(RoleModel.name == "Staff" || RoleModel.name == "Coordinator")
+    {
+      await Department.findById(department)
+      .updateOne
+      ({
+        $push:{staff : userid}
+      })
+      console.log("Saved user in department")
+    }
+    res.redirect('/login')
   }
 };
 
@@ -93,6 +106,7 @@ exports.deleteUser = async (req, res) => {
   const id = req.query.id
   const user = await User.findById(id)
   const RoleId = user.role
+  const DeptId = user.department
   if(user.ideas.length > 0)
   {
     msg = 'Please delete the ideas before remove the user';
@@ -105,6 +119,7 @@ exports.deleteUser = async (req, res) => {
   else
   {
     await Role.findById(RoleId).updateOne({$pull:{user:user._id}});
+    await Department.findById().updateOne({$pull:{user:user._id}});
     user.deleteOne();
     res.redirect('/userIndex');
   }

@@ -47,8 +47,9 @@
                 <div class="nav_list"> 
                     <a href="/createCategory" class="nav_link "> <i class="fa-solid fa-plus"></i> <span class="nav_name">Add new category</span> </a>
                     <a href="/categoryIndex" class="nav_link">  <i class="fa-solid fa-book"></i> <span class="nav_name">Categories</span> </a> 
-                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a> 
-                    <a href="/editclosedate" class="nav_link"><i class="fa-solid fa-folder-closed"></i> <span class="nav_name">Closer Date</span> </a>                   
+                    <a href="/departmentIndex" class="nav_link">  <i class="fa-sharp fa-regular fa-building"></i> <span class="nav_name">Departments</span> </a> 
+                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a>
+                    <a href="/editclosedate" class="nav_link"><i class="fa-solid fa-calendar-days"></i> <span class="nav_name">Create an Event</span> </a>                   
                 </div>
                 <a href="/login" class="nav_link"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">LogIn</span> </a>
                 <a href="/logout" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
@@ -63,13 +64,13 @@
     </span>
     <br>
     <table>
-        {{#each category}}
         <tr>
             <td><strong>Name</strong></td>
             <td><strong>Description</strong></td>
             <td><strong>List of Ideas</strong></td>
             <td><strong>Actions</strong></td>
         </tr>
+        {{#each category}}
         <tr>
             <td>{{name}}</td>
             <td>{{description}}</td>
