@@ -34,7 +34,7 @@
         <header class="header" id="header">
         {{!-- User profile --}}
             <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i></div>
-            <p>User logged in as {{user.name}}</p>
+            <p>User logged in as <a href="/userInfor">{{user.name}}</a></p>
             {{!-- <div class="header_img">
             <a href="./admin_infor.html">
             <img src="https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-6/332292050_727398232220453_1391977679387275167_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=JeteNVSs7VoAX8TQfOd&_nc_ht=scontent.fhan14-1.fna&oh=00_AfB-gFF2KIb1PXpOwrmwGIW-sHFdQYLZXK9frZyUECCq5g&oe=6428FDC0" alt="">
@@ -45,12 +45,12 @@
             <nav class="nav">
                 <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">IT Company</span> </a>
                 <div class="nav_list"> 
-                    <a href="/createDepartment" class="nav_link "> <i class="fa-solid fa-plus"></i> <span class="nav_name">Add new category</span> </a>
+                    <a href="/createDepartment" class="nav_link "> <i class="fa-solid fa-plus"></i> <span class="nav_name">Add new department</span> </a>
                     <a href="/categoryIndex" class="nav_link">  <i class="fa-solid fa-book"></i> <span class="nav_name">Categories</span> </a> 
                     <a href="/departmentIndex" class="nav_link">  <i class="fa-sharp fa-regular fa-building"></i> <span class="nav_name">Departments</span> </a> 
-                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a>               
+                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a>     
+                    <a href="/downloadAllCSV" class="nav_link">  <i class="fa-solid fa-download"></i> <span class="nav_name">Download Files</span> </a>            
                 </div>
-                <a href="/login" class="nav_link"> <i class='bx bx-log-in nav_icon'></i> <span class="nav_name">LogIn</span> </a>
                 <a href="/logout" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
             </nav>
         </div>

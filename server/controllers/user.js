@@ -19,6 +19,15 @@ exports.index = async (req, res) => {
   res.render("user/index", {'user':user,'userList' : userList});
 }
 
+//For infor page
+exports.infor = async (req, res) => {
+  const query = req.user;
+  const user = await User.findById(query.id)
+  .populate('role')
+  .populate('department')
+  res.render("user/user_infor", {'user':user});
+}
+
 //Register View
 exports.registerView = async (req, res) => {
   const role = await Role.find()

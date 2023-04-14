@@ -278,7 +278,7 @@ exports.comment = async (req, res) => {
         from: 'Localhost',
         to: 'staff@gmail.com',
         subject: 'New Comment!',
-        text: 'A new comment has been created by ' + req.user.name + ' on ' + day1 + '-' + month1 + '-' + year1
+        text: 'A new comment has been created by: ' + req.user.name + ' on ' + day1 + '-' + month1 + '-' + year1 + ' Comment message: ' + comment.text,
     }
     transporterStaff.sendMail(mailComment, function(err, info) {
         if (err) {

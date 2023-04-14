@@ -65,6 +65,9 @@ app.use('/', ideas);
 const categories = require('./server/routes/category');
 app.use('/', categories);
 
+const downloadCSV = require('./server/routes/csv.route');
+app.use('/', downloadCSV);
+
 const departments = require('./server/routes/department');
 app.use('/', departments);
 
