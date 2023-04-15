@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/fontawesome-free/css/all.min.css" />
+  <script src="/js/main.js"></script>
+  <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+
+<body>
+
+  <body id="body-pd">
+    <header class="header" id="header">
+      {{!-- User profile --}}
+      <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i></div>
+      <p>User logged in as <a href="/userInfor">{{user.name}}</a></p>
+      {{!-- <a href="#" class="header_img"><i class="fa-solid fa-user"></i></a>
+      --}}
+    </header>
+    <div class="l-navbar" id="nav-bar">
+      <nav class="nav">
+        <div> <a href="/" class="nav_logo"> <i class='bx bx-layer
+                nav_logo-icon'></i> <span class="nav_logo-name">IT Company</span>
+          </a>
+          <div class="nav_list">
+            <a href="/categoryIndex" class="nav_link"> <i class="fa-solid
+                  fa-book"></i> <span class="nav_name">Categories</span> </a>
+            <a href="/departmentIndex" class="nav_link"> <i class="fa-sharp
+                  fa-regular fa-building"></i> <span class="nav_name">Departments</span>
+            </a>
+            <a href="/userIndex" class="nav_link"> <i class="fa-solid
+                  fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span>
+            </a>
+            <a href="/downloadAllCSV" class="nav_link"> <i class="fa-solid
+                  fa-download"></i> <span class="nav_name">Download Files</span>
+            </a>
+            <a href="/dashboard" class="nav_link">  <i class="fa-solid 
+                  fa-chart-simple"></i> <span class="nav_name">Dashboard</span>
+            </a>                                 
+          </div>
+          <a href="/logout" class="nav_link"> <i class='bx bx-log-out
+                nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+      </nav>
+    </div>
+
+    <br>
+
+    <section class="statistical container">
+      <h2>Overview dashboard</h2>
+      <div class="row justify-content-center">
+        <div class="col-sm total-item">
+          <p>Total number of idea</p>
+          <p id="idea">{{idea.length}}</p>
+        </div>
+        <div class="col-sm total-item">
+          <p>Total number of category created</p>
+          <p>{{category.length}}</p>
+        </div>
+        <div class="col-sm total-item">
+          <p>Total number of employees available</p>
+          <p>{{userList.length}}</p>
+        </div>
+        <div class="col-sm total-item">
+          <p>Current total number of departments</p>
+          <p>{{department.length}}</p>
+        </div>
+      </div>
+      <div class="row my-5">
+        <div class="col-8">
+          <div>
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+        <div class="col-4">
+          <h5 style="text-align: center">
+            Number of ideas by each department compared to this year
+          </h5>
+          <canvas id="myChartPie"></canvas>
+        </div>
+      </div>
+      <div class="row my-5">
+        <canvas id="myChartLine"></canvas>
+      </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+
+    {{!--
+    <script>
+      const ctx = document.getElementById("myChart");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: [
+            "Department 1",
+            "Department 2",
+            "Department 3",
+            "Department 4",
+            "Department 5",
+            "Department 6",
+          ],
+          datasets: [
+            {
+              label: "Number of ideas per department compared to current toppic",
+              data: [12, 19, 3, 5, 2, 3],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      const chartLine = document.getElementById("myChartLine");
+
+      new Chart(chartLine, {
+        type: "line",
+        data: {
+          labels: [
+            "Department 1",
+            "Department 2",
+            "Department 3",
+            "Department 4",
+            "Department 5",
+            "Department 6",
+          ],
+          datasets: [
+            {
+              label:
+                "Number of ideas for each department compared to the month of each year",
+              data: [11, 59, 80, 31, 56, 75, 40],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+            },
+          ],
+        },
+        options: {
+          title: {
+            display: true,
+            text: "Line Chart",
+          },
+          reponsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      const chartPie = document.getElementById("myChartPie");
+
+      new Chart(chartPie, {
+        type: "pie",
+        data: {
+          labels: [
+            "Department 1",
+            "Department 2",
+            "Department 3",
+            "Department 4",
+            "Department 5",
+            "Department 6",
+          ],
+          datasets: [
+            {
+              backgroundColor: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+              data: [418, 218, 268, 351, 212, 430],
+            },
+          ],
+        },
+      });
+    </script> --}}
+  </body>
+
+</html>

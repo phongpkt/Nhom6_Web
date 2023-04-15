@@ -40,6 +40,19 @@ exports.view = async (req, res) => {
     }
 }
 
+exports.dashboard = async (req, res) => {
+    const lbl = [];
+    const user = req.user
+    const idea = await IdeaModel.find()
+    const category = await CatModel.find()
+    const department = await Department.find()
+    const userList = await User.find()
+    res.render('ideas/dashboard', {'idea':idea, 'user':user, 
+    'category':category, 'department':department, 'userList':userList});
+
+
+}
+
 exports.sortByLikes = async (req, res) => {
     const user = req.user
     const idea = await IdeaModel.find().sort({like_count: -1})

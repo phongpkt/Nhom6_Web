@@ -8,6 +8,7 @@ const {
 const ideaController = require('../controllers/idea')
 
 router.get('/', protectRoute, ideaController.view);
+router.get('/dashboard', ideaController.dashboard)
 
 router.get('/sortByLikes', ideaController.sortByLikes);
 router.get('/sortByDislikes', ideaController.sortByDislikes);

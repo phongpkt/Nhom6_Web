@@ -9,6 +9,6 @@ const departmentController = require('../controllers/department')
 router.get('/departmentIndex', departmentController.index);
 router.get('/createDepartment', isCoordinator, departmentController.createForm);
 router.post('/createDepartment', departmentController.createDept);
-router.get('/deleteDepartment?:id', isAdmin, departmentController.deleteDept)
+router.get('/deleteDepartment?:id', isCoordinator, departmentController.deleteDept)
 
 module.exports = router;
