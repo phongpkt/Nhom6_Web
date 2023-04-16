@@ -8,26 +8,29 @@ const nodemailer = require('nodemailer');
 
 //setting transporters
 const transporterQAC = nodemailer.createTransport({
-    host: 'smtp.mailtrap.io',
+    service: 'Gmail',
+    host: 'smtp.gmail.com',
     port: 2525,
     auth: {
-        user: '140e1a5b653658',
-        pass: '74d11adcf816bb'
+        user: 'duongpercy410s@gmail.com',
+        pass: 'nqft drkb gdlb elty'
     }
 });
 
 const transporterStaff = nodemailer.createTransport({
-    host: 'smtp.mailtrap.io',
+    service: 'Gmail',
+    host: 'smtp.gmail.com',
     port: 2525,
     auth: {
-        user: '8088f7ee2af198',
-        pass: '6363f74cab6b60'
+        user: 'phongthanhPo@gmail.com',
+        pass: 'aqkc gnxm cmzs kwjj'
     }
 });
 
 exports.view = async (req, res) => {
     var page = req.query.page
     const user = req.user
+    // console.log(user.department)
     if (page == 1){
         const query = await IdeaModel.find().limit(5)
         res.render('home', {'idea':query, 'user':user})
@@ -38,19 +41,6 @@ exports.view = async (req, res) => {
         const query = await IdeaModel.find()
         res.render('home', {'idea':query, 'user':user})
     }
-}
-
-exports.dashboard = async (req, res) => {
-    const lbl = [];
-    const user = req.user
-    const idea = await IdeaModel.find()
-    const category = await CatModel.find()
-    const department = await Department.find()
-    const userList = await User.find()
-    res.render('ideas/dashboard', {'idea':idea, 'user':user, 
-    'category':category, 'department':department, 'userList':userList});
-
-
 }
 
 exports.sortByLikes = async (req, res) => {
@@ -71,23 +61,6 @@ exports.sortByDate = async (req, res) => {
     res.render('home', {'idea':idea, 'user':user})
 }
 
-// exports.sortByDepartment = async (req, res) => {
-//     const user = req.user
-//     const department = await Department.find()
-//     var {sort} = department.na
-//     const idea = await IdeaModel.find().sort({department.name : 1})
-// }
-
-// exports.ideaDetail = async (req, res)=>{
-//     const id = req.query.id
-//     const user = req.user;
-//     const query = await IdeaModel.findById(id)
-//     .populate('category')
-//     .populate('author')
-//     .populate('comments.postedBy')
-//     res.render('ideas/view-idea', {'idea':query, 'user':user})
-// }
-
 exports.createForm = async (req, res) => {
     const user = req.user;
     const cat = await CatModel.find()
@@ -95,13 +68,12 @@ exports.createForm = async (req, res) => {
 }
 
 exports.createIdea = async (req, res) => {
-    //save new idea
-    // const files = req.files
     const newIdea = new IdeaModel()
     newIdea.title = req.body.txtTitle
     newIdea.content = req.body.txtContent
     newIdea.category = req.body.category
     newIdea.author = req.user._id
+    newIdea.department = req.user.department
     const Ideaid = newIdea._id
     const category = await CatModel.findById(req.body.category)
     
@@ -120,6 +92,7 @@ exports.createIdea = async (req, res) => {
         newIdea.save()
         await CatModel.findById(req.body.category).updateOne({$push:{ideas:Ideaid}})
         await User.findById(req.user._id).updateOne({$push:{ideas:Ideaid}})
+        await Department.findById(req.user.department).updateOne({$push:{ideas:Ideaid}})
         res.redirect('/')
     }
     const date = new Date(now())
@@ -128,19 +101,18 @@ exports.createIdea = async (req, res) => {
     let day1 = ("0" + date.getDate()).slice(-2);
 
     //Sending Email
-    const mailIdea = {
-        from: 'Localhost',
-        to: 'QAC@gmail.com',
-        subject: 'New Idea',
-        text: 'A new idea has been created by ' + req.user.name + ' on ' + day1 + '-' + month1 + '-' + year1
-    }
-    transporterQAC.sendMail(mailIdea, function(err, info) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Success');
-        }
-    });
+    // const mailIdea = {
+    //     to: 'duongpercy410s@gmail.com',
+    //     subject: 'New Idea',
+    //     text: 'A new idea has been created by ' + req.user.name + ' on ' + day1 + '-' + month1 + '-' + year1
+    // }
+    // transporterQAC.sendMail(mailIdea, function(err, info) {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         console.log('Success');
+    //     }
+    // });
 }
 
 exports.editIdea = async (req, res) => {
@@ -288,8 +260,7 @@ exports.comment = async (req, res) => {
 
     //Sending Email
     const mailComment = {
-        from: 'Localhost',
-        to: 'staff@gmail.com',
+        to: 'phongthanhPo@gmail.com',
         subject: 'New Comment!',
         text: 'A new comment has been created by: ' + req.user.name + ' on ' + day1 + '-' + month1 + '-' + year1 + ' Comment message: ' + comment.text,
     }

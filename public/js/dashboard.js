@@ -1,13 +1,10 @@
 const ctx = document.getElementById("myChart");
-
+const departments = ["Accounting", "Marketing", "Research and Development"];
+  
 new Chart(ctx, {
   type: "bar",
   data: {
-    labels: [
-      "Accounting",
-      "Marketing",
-      "Research and Development",
-    ],
+    labels: departments,
     datasets: [
       {
         label: "Number of ideas per department compared to current toppic",

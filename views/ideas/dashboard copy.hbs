@@ -91,8 +91,13 @@
           <canvas id="myChartPie"></canvas>
         </div>
       </div>
+      <div class="row my-5">
+        <canvas id="myChartLine"></canvas>
+      </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/dashboard.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
       crossorigin="anonymous"></script>
@@ -102,48 +107,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   </body>
 
-  <script>
-    const ctx = document.getElementById("myChart");
-    const myChartPie = document.getElementById("myChartPie");
-
-    const lbls = [{{#each labels}}'{{this}}',{{/each}}];
-    const dataValues = [{{#each values}}{{this}},{{/each}}];
-      
-    new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: lbls,
-        datasets: [
-          {
-            label: "Number of ideas per department compared to current toppic",
-            data: dataValues,
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
-      
-    new Chart(myChartPie, {
-    type: "pie",
-    data: {
-      labels: lbls,
-      datasets: [
-        {
-          backgroundColor: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-          data: dataValues,
-        },
-      ],
-    },
-  });
-  </script>
 </html>

@@ -8,7 +8,8 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 const DepartmentSchema = new Schema({
     name: {type:String, required: true},
     description: {type:String, required: true},
-    staff: [{type:ObjectId, ref:"Users"}]
+    staff: [{type:ObjectId, ref:"Users"}],
+    ideas: [{type:ObjectId, ref:"Ideas"}]
 })
 
 module.exports = mongoose.model('Departments', DepartmentSchema);

@@ -5,10 +5,12 @@ const {
     isStaff,
     isManager
 } = require("../../middlewares/authJwt")
-const ideaController = require('../controllers/idea')
+const ideaController = require('../controllers/idea');
+const chartController = require('../controllers/chart');
 
 router.get('/', protectRoute, ideaController.view);
-router.get('/dashboard', ideaController.dashboard)
+
+router.get('/dashboard', chartController.dashboard);
 
 router.get('/sortByLikes', ideaController.sortByLikes);
 router.get('/sortByDislikes', ideaController.sortByDislikes);
