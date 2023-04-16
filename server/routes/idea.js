@@ -10,7 +10,7 @@ const chartController = require('../controllers/chart');
 
 router.get('/', protectRoute, ideaController.view);
 
-router.get('/dashboard', chartController.dashboard);
+router.get('/dashboard',isManager, chartController.dashboard);
 
 router.get('/sortByLikes', ideaController.sortByLikes);
 router.get('/sortByDislikes', ideaController.sortByDislikes);
@@ -20,7 +20,7 @@ router.get('/sortByDate', ideaController.sortByDate);
 router.get('/likeIdea?:id', ideaController.like)
 router.get('/dislikeIdea?:id', ideaController.dislike)
 
-router.get('/commentForm?:id', ideaController.commentForm)
+router.get('/commentForm?:id', protectRoute, ideaController.commentForm)
 router.post('/comment?:id', ideaController.comment)
 
 router.get('/createIdea', isStaff, ideaController.createForm);

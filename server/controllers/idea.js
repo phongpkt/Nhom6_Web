@@ -216,7 +216,15 @@ exports.commentForm = async (req, res) => {
     const id = req.query.id
     const user = req.user
     const query = await IdeaModel.findById(id).populate('category')
-    res.render('ideas/comment', {'idea':query, 'user':user})
+    const category = await CatModel.findById(query.category)
+    //formating date
+    let year = category.commentDeadline.getFullYear();
+    let month = ("0" + (category.commentDeadline.getMonth() + 1)).slice(-2);
+    let day = ("0" + category.commentDeadline.getDate()).slice(-2);
+    var msg = 'Comments deadline: ' + day + '-' + month + '-' + year;
+
+
+    res.render('ideas/comment', {'idea':query, 'user':user, 'msg':msg});
 }
 
 exports.comment = async (req, res) => {

@@ -1,3 +1,18 @@
+.staff {
+    border: 2px dashed white;
+    padding: 0px;
+    margin : 1px;
+}
+.admin {
+    border: 2px dashed white;
+    padding: 0px;
+    margin : 1px;
+}
+.manager {
+    border: 2px dashed white;
+    padding: 0px;
+    margin : 1px;
+}
 .sort {
     border-radius: 5px;
     display: inline-flex;
@@ -6,7 +21,9 @@
     margin-bottom: 20px;
     gap: 2px;
 }
-
+.btn {
+    height: 40px;
+}
 .all-idea {
     margin-top: 2px;
     margin-left: 75px;

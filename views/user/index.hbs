@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,88 +10,111 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/pagination.css">
-    <link rel="stylesheet"  href="/css/fontawesome-free/css/all.min.css"/>
+    <link rel="stylesheet" href="/css/fontawesome-free/css/all.min.css" />
     <script src="/js/main.js"></script>
     <style>
         .fa {
-        font-size: 50px;
-        cursor: pointer;
-        user-select: none;
-        }
-        table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
+            font-size: 50px;
+            cursor: pointer;
+            user-select: none;
         }
 
-        td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
         }
 
         tr:nth-child(even) {
-        background-color: #dddddd;
+            background-color: #dddddd;
         }
     </style>
 </head>
+
 <body>
+
     <body id="body-pd">
         <header class="header" id="header">
-        {{!-- User profile --}}
+            {{!-- User profile --}}
             <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i></div>
             <p>User logged in as <a href="/userInfor">{{user.name}}</a></p>
-            {{!-- <a href="#"class="header_img"><i class="fa-solid fa-user"></i></a> --}}
+            {{!-- <a href="#" class="header_img"><i class="fa-solid fa-user"></i></a> --}}
         </header>
         <div class="l-navbar" id="nav-bar">
             <nav class="nav">
-                <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">IT Company</span> </a>
-                <div class="nav_list"> 
-                    <a href="/categoryIndex" class="nav_link">  <i class="fa-solid fa-book"></i> <span class="nav_name">Categories</span> </a> 
-                    <a href="/departmentIndex" class="nav_link">  <i class="fa-sharp fa-regular fa-building"></i> <span class="nav_name">Departments</span> </a> 
-                    <a href="/userIndex" class="nav_link">  <i class="fa-solid fa-chalkboard-user"></i> <span class="nav_name">User Accounts</span> </a>
-                    <a href="/downloadAllCSV" class="nav_link">  <i class="fa-solid fa-download"></i> <span class="nav_name">Download Files</span> </a>  
-                </div>
-                <a href="/logout" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+                <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span
+                            class="nav_logo-name">IT Company</span> </a>
+                    <div class="nav_list">
+                        <div class="staff">
+                            <p class="nav_link" style="margin-left:30px">Staff routes</p>
+                            <a href="/categoryIndex" class="nav_link"> <i class="fa-solid fa-book"></i> <span
+                                    class="nav_name">Categories</span> </a>
+                            <a href="/departmentIndex" class="nav_link"> <i class="fa-sharp fa-regular fa-building"></i>
+                                <span class="nav_name">Departments</span> </a>
+                        </div>
+                        <div class="manager">
+                            <p class="nav_link" style="margin-left:25px">Manager routes</p>
+                            <a href="/downloadAllCSV" class="nav_link"> <i class="fa-solid fa-download"></i> <span
+                                    class="nav_name">Download Files</span> </a>
+                            <a href="/dashboard" class="nav_link"> <i class="fa-solid fa-chart-simple"></i> <span
+                                    class="nav_name">Dashboard</span> </a>
+                        </div>
+                        <div class="admin">
+                            <p class="nav_link" style="margin-left:30px">Admin routes</p>
+                            <a href="/userIndex" class="nav_link"> <i class="fa-solid fa-chalkboard-user"></i> <span
+                                    class="nav_name">User Accounts</span> </a>
+                        </div>
+                    </div>
+                    <a href="/logout" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span
+                            class="nav_name">SignOut</span> </a>
             </nav>
         </div>
-<!-- Page content -->
-<div class="content">
-    <h1>User Index</h1>
-    <span style="color:red; font-size:medium">{{msg}}</span>
-    <br>
-    <a href="/register" class="btn" style="background-color: green;"> <i class="fa-solid fa-plus"></i> <span class="nav_name">Add new Account</span> </a>
-    <table>
-        <tr>
-            <td><strong>Name</strong></td>
-            <td><strong>Email</strong></td>
-            <td><strong>Location</strong></td>
-            {{!-- <td><strong>Ideas posted</strong></td> --}}
-            <td><strong>Roles</strong></td>
-            <td><strong>Actions</strong></td>
-        </tr>
-        {{#each userList}}
-        <tr>
-            <td>
-                {{name}}
-            </td>
-            <td>
-                {{email}}
-            </td>
-            <td>{{location}}</td>
-            {{!-- <td>
-                {{#each ideas}}
-                    <p>{{title}}</p>
+        <!-- Page content -->
+        <div class="content">
+            <h1>User Index</h1>
+            <span style="color:red; font-size:medium">{{msg}}</span>
+            <br>
+            <a href="/register" class="btn" style="background-color: green;"> <i class="fa-solid fa-plus"></i> <span
+                    class="nav_name">Add new Account</span> </a>
+            <table>
+                <tr>
+                    <td><strong>Name</strong></td>
+                    <td><strong>Email</strong></td>
+                    <td><strong>Location</strong></td>
+                    {{!-- <td><strong>Ideas posted</strong></td> --}}
+                    <td><strong>Roles</strong></td>
+                    <td><strong>Actions</strong></td>
+                </tr>
+                {{#each userList}}
+                <tr>
+                    <td>
+                        {{name}}
+                    </td>
+                    <td>
+                        {{email}}
+                    </td>
+                    <td>{{location}}</td>
+                    {{!-- <td>
+                        {{#each ideas}}
+                        <p>{{title}}</p>
+                        {{/each}}
+                    </td> --}}
+                    <td>{{role.name}}</td>
+                    <td><a href="/deleteUser?id={{_id}}">Delete</a></td>
+                </tr>
                 {{/each}}
-            </td> --}}
-            <td>{{role.name}}</td>
-            <td><a href="/deleteUser?id={{_id}}">Delete</a></td>
-        </tr>
-        {{/each}}
-    </table>
-</div>
-</body>
+            </table>
+        </div>
+    </body>
+
 </html>
