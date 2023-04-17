@@ -1,5 +1,3 @@
-const User = require('../models/User')
-const Role = require('../models/Role')
 //neu chua login
 exports.protectRoute = (req, res, next) => {
     if (req.isAuthenticated()) {

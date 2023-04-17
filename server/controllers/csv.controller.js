@@ -20,7 +20,7 @@ exports.downloadIndt = async (req, res) => {
 };
 exports.downloadZip = async (req, res) => {
     const file_after_download = 'downloaded_file.zip';
-    const download = zipLocal.sync.zip('./public/uploads').compress().save(file_after_download);
+    zipLocal.sync.zip('./public/uploads').compress().save(file_after_download);
     var msg = 'Download zip successfully!!'
     const query = await Category.find()
     res.render('downloadCSV', {'category':query, 'msg':msg});

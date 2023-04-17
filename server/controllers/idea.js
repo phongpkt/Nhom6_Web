@@ -100,19 +100,19 @@ exports.createIdea = async (req, res) => {
     let month1 = ("0" + (date.getMonth() + 1)).slice(-2);
     let day1 = ("0" + date.getDate()).slice(-2);
 
-    //Sending Email
-    // const mailIdea = {
-    //     to: 'duongpercy410s@gmail.com',
-    //     subject: 'New Idea',
-    //     text: 'A new idea has been created by ' + req.user.name + ' on ' + day1 + '-' + month1 + '-' + year1
-    // }
-    // transporterQAC.sendMail(mailIdea, function(err, info) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log('Success');
-    //     }
-    // });
+    // Sending Email
+    const mailIdea = {
+        to: 'duongpercy410s@gmail.com',
+        subject: 'New Idea',
+        text: 'A new idea has been created by ' + req.user.name + ' on ' + day1 + '-' + month1 + '-' + year1
+    }
+    transporterQAC.sendMail(mailIdea, function(err, info) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Success');
+        }
+    });
 }
 
 exports.editIdea = async (req, res) => {
@@ -229,7 +229,6 @@ exports.commentForm = async (req, res) => {
 
 exports.comment = async (req, res) => {
     const id = req.body.id
-    const idea = await IdeaModel.findById(id)
     const comment = {
         text: req.body.comment,
         postedBy: req.user.name,
