@@ -2,7 +2,6 @@ const Idea = require("../../models/Idea");
 const Category = require("../../models/Category");
 const Department = require("../../models/Department");
 const User = require("../../models/User");
-const ChartData = require("../../models/ChartData");
 
 
 exports.dashboard = async (req, res) => {

@@ -32,7 +32,15 @@ exports.infor = async (req, res) => {
 exports.registerView = async (req, res) => {
   const role = await Role.find()
   const dept = await Department.find()
-  res.render("user/register", {'role':role, 'department':dept});
+
+  const roleRegistered = [role];
+  role.forEach(element => {
+    if (element.name != "Admin"){
+      roleRegistered.push(element);
+    }
+  });
+  // console.log(roleRegistered);
+  res.render("user/register", {'roleRegistered':roleRegistered, 'role':role, 'department':dept});
 };
 //Post Request for Register
 exports.registerUser = async (req, res) => {

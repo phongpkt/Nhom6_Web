@@ -5,7 +5,6 @@ const session = require('express-session');
 const path = require('path');
 
 const app = express()
-const URL = "mongodb+srv://phongpktgch210005:TtIDbt2fvGoJukO8@cluster0.unxefp9.mongodb.net/test";
 
 //day tao Role cho DB
 const Role = require('./models/Role');
@@ -31,7 +30,7 @@ app.set('view engine', 'hbs')
 
 //connect to MongoDb
 mongoose
-    .connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect("mongodb+srv://phongpktgch210005:TtIDbt2fvGoJukO8@cluster0.unxefp9.mongodb.net/test", { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("Connected to DB");
     })
@@ -74,6 +73,6 @@ app.use('/', departments);
 const users = require('./server/routes/user');
 app.use('/', users);
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 8081
 app.listen(PORT)
 console.log("Server is running at: " + PORT)
